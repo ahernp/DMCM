@@ -7,20 +7,25 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Log',
+            name="Log",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('level', models.CharField(max_length=10)),
-                ('msg', models.TextField()),
-                ('datetime', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("level", models.CharField(max_length=10)),
+                ("msg", models.TextField()),
+                ("datetime", models.DateTimeField(auto_now_add=True)),
             ],
-            options={
-                'ordering': ['-datetime'],
-            },
-        ),
+            options={"ordering": ["-datetime"]},
+        )
     ]

@@ -37,6 +37,7 @@ class PageDetailView(DetailView):
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
+
 class PageEditView(DetailView):
     model = Page
     template_name = "mpages/page_edit.html"

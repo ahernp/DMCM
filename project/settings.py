@@ -107,7 +107,7 @@ LOGGING = {
             "handlers": ["db_log"],
             "level": "INFO",
             "propagate": True,
-        },
+        }
     },
 }
 

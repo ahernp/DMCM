@@ -12,7 +12,7 @@ class Tag(models.Model):
     colour = models.CharField(max_length=7)
 
     class Meta:
-        ordering = ['label']
+        ordering = ["label"]
 
     def __str__(self):
         return self.label

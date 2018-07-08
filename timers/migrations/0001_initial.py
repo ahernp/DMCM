@@ -7,19 +7,24 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Timer',
+            name="Timer",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('target', models.DateTimeField()),
-                ('label', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("target", models.DateTimeField()),
+                ("label", models.TextField()),
             ],
-            options={
-                'ordering': ['target'],
-            },
-        ),
+            options={"ordering": ["target"]},
+        )
     ]

@@ -8,50 +8,88 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Page',
+            name="Page",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=250)),
-                ('slug', models.SlugField(max_length=250, unique=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='Time Created')),
-                ('updated', models.DateTimeField(auto_now=True, verbose_name='Time Updated')),
-                ('content', models.TextField(blank=True, verbose_name='Page content')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='mpages.Page')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=250)),
+                ("slug", models.SlugField(max_length=250, unique=True)),
+                (
+                    "created",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Time Created"
+                    ),
+                ),
+                (
+                    "updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Time Updated"),
+                ),
+                ("content", models.TextField(blank=True, verbose_name="Page content")),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="mpages.Page",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['title'],
-            },
+            options={"ordering": ["title"]},
         ),
         migrations.CreateModel(
-            name='PageRead',
+            name="PageRead",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('page', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='mpages.Page')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "page",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="mpages.Page"
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['-created'],
-            },
+            options={"ordering": ["-created"]},
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=25)),
-                ('colour', models.CharField(max_length=7)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=25)),
+                ("colour", models.CharField(max_length=7)),
             ],
-            options={
-                'ordering': ['label'],
-            },
+            options={"ordering": ["label"]},
         ),
         migrations.AddField(
-            model_name='page',
-            name='tags',
-            field=models.ManyToManyField(to='mpages.Tag'),
+            model_name="page",
+            name="tags",
+            field=models.ManyToManyField(to="mpages.Tag"),
         ),
     ]
