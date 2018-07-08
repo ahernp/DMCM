@@ -23,7 +23,8 @@ a {
 
 code {
     font-family: monospace;
-    color: #f00;
+    font-size: 1.5em;
+    color: #800;
 }
 
 table {
@@ -73,7 +74,7 @@ th, td {
 }
 
 .errorlist, .highlight {
-    background-color: maroon;
+    background-color: #800;
     color: white;
 }
 
