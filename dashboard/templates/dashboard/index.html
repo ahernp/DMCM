@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extrastyle %}{% endblock %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <div class="pure-g gutters">
+        <div class="pure-u-1-2">
+            <h2>Version Information</h2>
+            <p>
+                <span class="strong">Hostname:</span>
+                {{ project_state.hostname }}
+            </p>
+            <p>
+                <span class="strong">Python:</span>
+                {{ project_state.python }}
+            </p>
+            <p>
+                <span class="strong">Packages:</span>
+                {{ project_state.packages|safe }}
+            </p>
+            <p>
+                <span class="strong">Last Commit:</span>
+                {{ project_state.commit|safe }}
+            </p>
+            <h2>Flags</h2>
+            {% for flag in project_state.settings_flags %}
+                <p>
+                    <span {% if flag.actual != flag.expected %}class="highlight"{% endif %}>
+                        {{ flag.name }}: {{flag.actual}}
+                    </span>
+                </p>
+            {% endfor %}
+        </div>
+        <div class="pure-u-1-2">
+            <h2>Log Entries</h2>
+            {% for entry in log_entries %}
+                <p {% if entry.level == "ERROR" %}class="highlight"{% endif %}>
+                    {{ entry.level }}: {{ entry.msg }}
+                    <br>
+                    {{ entry.datetime|date:"Y-m-d H:i:s" }}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block navlinks %}
+    <p><a href="{% url 'admin:core_log_changelist' %}">Admin</a></p>
+    <p><a href="{% url 'upload' %}">Upload</a></p>
+{% endblock %}
+
+{% block extrascript %}{% endblock %}

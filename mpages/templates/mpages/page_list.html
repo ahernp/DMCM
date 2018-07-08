@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{% if parent %}{{ parent.title }} {% endif %}Pages{% endblock %}
+
+{% block extrastyle %}{% endblock %}
+
+{% block content %}
+    <h1>{% if parent %}{{ parent.title }} {% endif %}Pages</h1>
+    <table class="pure-table pure-table-odd pure-table-bordered">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Parent</th>
+            <th>Updated</th>
+        </tr>
+        </thead>
+    <tbody>
+            {% for page in object_list %}
+                <tr>
+                    <td><a href="{% url 'page-detail' page.slug %}">{{ page.title }}</a></td>
+                    <td>
+                        {% if page.parent %}
+                            <a href="{% url 'page-detail' page.parent.slug %}">{{ page.parent.title }}</a>
+                        {% else %}
+                            None
+                        {% endif %}
+                    </td>
+                    <td>{{ page.updated | date:"Y-m-d H:i:s" }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block navlinks %}
+    <p><a href="{% url 'admin:mpages_page_changelist' %}">Admin</a></p>
+{% endblock %}
+
+{% block extrascript %}{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %} 
+
+{% block title %}Timers{% endblock %}
+
+{% block extrastyle %}{% endblock %}
+
+{% block content %}
+    <h1>Timers</h1>
+    {% for timer in object_list %}
+        <p label="{{ timer.label }}" target="{{ timer.target|date:"c" }}" class="timer">
+            {{ timer.label }}: {{ timer.target }}
+        </p>
+    {% endfor %}
+{% endblock %}
+
+{% block navlinks %}
+    <p><a href="{% url 'admin:timers_timer_changelist' %}">Admin</a></p>
+{% endblock %}
+
+{% block extrascriptlibraries %}
+    <script src="{% static "countdown-2.6.0.min.js" %}"></script>
+{% endblock %}
+
+{% block extrascript %}
+    $(document).ready(function() {
+        var setTimes = function() {
+            $(".timer").each(function(index){
+                var label = $(this).attr("label");
+                var target = $(this).attr("target");
+                $(this).text(label + ': ' + countdown(new Date(target)).toString() + ".");
+            });
+        };
+        setTimes();
+        setInterval(setTimes, 1000);
+    });
+{% endblock %}

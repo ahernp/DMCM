@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Files{% endblock %}
+
+{% block extrastyle %}{% endblock %}
+
+{% block content %}
+    <h1>Upload Files</h1>
+    <form method="post" enctype="multipart/form-data" class="pure-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Images</h2>
+    {{ images }}
+
+    <h2>Thumbnails</h2>
+    {{ thumbnails }}
+{% endblock %}
+
+{% block extrascript %}{% endblock %}

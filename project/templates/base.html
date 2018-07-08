@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    	{% load static %}
+       	<link href="{% static "favicon.ico" %}" rel="shortcut icon" type="image/ico" />
+   	    <link href="{% static "pure-min.css" %}" rel="stylesheet" />
+        <link href="{% static "jquery.fancybox.min-3.3.5.css" %}" rel="stylesheet" />
+        <link href="{% static "jquery.dataTables-1.10.18.min.css" %}" rel="stylesheet">
+        <link href="{% static "select2-4.0.6-rc.0.min.css" %}" rel="stylesheet">
+   	    <link href="{% static "styles.css" %}" rel="stylesheet">
+        <style>
+            {% block extrastyle %}{% endblock %}
+        </style>
+    </head>
+    <body>
+        <div id="left-menu">
+            {% block mainmenu %}
+                <p><a href="{% url 'admin:index' %}">Admin</a></p>
+            {% endblock %}
+            {% block pageinfo %}
+                <p>Generated {% now "Y-m-d H:i:s" %}</p>
+            {% endblock %}
+        </div>
+        <div id="content">
+            {% if messages %}
+                <ul class="messagelist">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% block content %}
+                <h2>Content</h2>
+            {% endblock %}
+        </div>
+        <div id="right-menu">
+            <form action="{% url 'search' %}" method="GET">
+                <input                                      
+                    id="search_string"         
+                    type="text"                           
+                    name="search"                         
+                    placeholder="Search"
+                    {% if search_string %}value="{{ search_string }}"{% endif %}
+                    autofocus>
+            </form>
+        </div>
+        <script src="{% static "jquery-3.3.1.min.js" %}"></script>
+        <script src="{% static "jquery.fancybox-3.3.5.min.js" %}"></script>
+        <script src="{% static "jquery.dataTables-1.10.18.min.js" %}"></script>
+        <script src="{% static "select2-4.0.6-rc.0.min.js" %}"></script>
+        {% block extrascriptlibraries %}{% endblock %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.fancybox.defaults.loop = true;
+                $("a:has(img)").not("#logo").attr({"data-fancybox": "gallery", "data-caption": function(i, val) {return $(this).children("img:first").attr("title")}});
+                $('table').DataTable();
+                $('select').select2();
+            });
+            {% block extrascript %}{% endblock %}
+        </script>
+    </body>
+</html>

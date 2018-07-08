@@ -1,0 +1,12 @@
+media/
+static/
+tags
+session.vim
+node_modules
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Environment Variables
+.env

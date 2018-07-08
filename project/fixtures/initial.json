@@ -1,0 +1,30 @@
+[
+{
+    "model": "timers.timer",
+    "pk": 1,
+    "fields": {
+        "target": "1969-12-05T13:00:00Z",
+        "label": "Age"
+    }
+},
+{
+    "model": "mpages.page",
+    "fields": {
+        "title": "Home",
+        "slug": "home",
+        "content": "# Home",
+        "created": "2018-07-08T09:00:00.000Z",
+        "updated": "2018-07-08T09:00:00.000Z"
+    }
+},
+{
+    "model": "mpages.page",
+    "fields": {
+        "title": "Main Menu",
+        "slug": "main-menu",
+        "content": "[Home](/)\n\n[Dashboard](/dashboard)\n\n[Site Map](/pages)\n\n[Tools](/tools)\n\n[Timers](/timers)",
+        "created": "2018-07-08T09:00:00.000Z",
+        "updated": "2018-07-08T09:00:00.000Z"
+    }
+}
+]

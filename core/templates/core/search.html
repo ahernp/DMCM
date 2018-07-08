@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block extrastyle %}{% endblock %}
+
+{% block content %}
+    <h1>Search Results</h1>
+    <p>For "{{ search_string }}"</p>
+    {% if error %}
+        <p class="highlight">{{ error }}</p>
+    {% endif %}
+    {% if pages or entries %}
+        {% if pages %}
+            <h2>Pages</h2>
+            {% for page in pages %}
+                <p><a href="{% url 'page-detail' page.slug %}">{{ page.title_highlight|safe }}</a></p>
+                <p>{{ page.content_highlight|safe }}...</p>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <p>No matches found</p>
+    {% endif %}
+{% endblock %}
+
+{% block extrascript %}{% endblock %}

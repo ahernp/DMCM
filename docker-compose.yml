@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD
+    nginx:
+        image: nginx:stable
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./uwsgi_params:/opt/dmcm/uwsgi_params
+            - ./uwsgi.sock:/opt/dmcm/uwsgi.sock
+            - ./static:/opt/dmcm/static
+            - ./media:/opt/dmcm/media
+            - ./templates:/opt/dmcm/templates
+        depends_on:
+            - webapp
+        ports:
+            - "4313:80"
+#    node:
+#        image: node:9
+#        working_dir: /node
+#        command: bash -c "npm install && npm start"
+#        volumes:
+#            - ./mpages/mpagesjs:/node
+#        ports:
+#            - "3000:3000"
+    webapp:
+        build:
+            context: .
+        image: webapp:dmcm
+        environment:
+            - DMCM_DATABASE_USER
+            - DMCM_DATABASE_PASSWORD
+            - DMCM_DATABASE_NAME
+            - POSTGRES_PASSWORD
+            - DJANGO_SECRET_KEY
+        command: uwsgi --socket /opt/dmcm/uwsgi.sock --module project.wsgi --chmod-socket=777
+        volumes:
+            - .:/opt/dmcm
+        working_dir: /opt/dmcm
+        depends_on:
+            - db
