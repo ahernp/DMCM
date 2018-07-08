@@ -35,5 +35,6 @@ Tested on Ubuntu 18.04.
       1. `python manage.py makemigrations core mpages timers`
       1. `python manage.py migrate`
       1. `python manage.py loaddata project/fixtures/initial.json`
+      1. `python manage.py collectstatic`
       1. Create `admin` user: `python manage.py createsuperuser`
 1. Access dmcm at: http://localhost:4313

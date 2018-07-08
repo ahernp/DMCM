@@ -14,10 +14,8 @@
         </style>
     </head>
     <body>
-        <div id="left-menu">
-            {% block mainmenu %}
-                <p><a href="{% url 'admin:index' %}">Admin</a></p>
-            {% endblock %}
+        <div id="mainmenu">
+            {{ mainmenu }}
             {% block pageinfo %}
                 <p>Generated {% now "Y-m-d H:i:s" %}</p>
             {% endblock %}
@@ -34,7 +32,7 @@
                 <h2>Content</h2>
             {% endblock %}
         </div>
-        <div id="right-menu">
+        <div id="sidebar">
             <form action="{% url 'search' %}" method="GET">
                 <input                                      
                     id="search_string"         
@@ -44,6 +42,7 @@
                     {% if search_string %}value="{{ search_string }}"{% endif %}
                     autofocus>
             </form>
+            {{ sidebar }}
         </div>
         <script src="{% static "jquery-3.3.1.min.js" %}"></script>
         <script src="{% static "jquery.fancybox-3.3.5.min.js" %}"></script>
