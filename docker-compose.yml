@@ -5,19 +5,6 @@ services:
         image: postgres
         environment:
             - POSTGRES_PASSWORD
-    nginx:
-        image: nginx:stable
-        volumes:
-            - ./nginx.conf:/etc/nginx/conf.d/default.conf
-            - ./uwsgi_params:/opt/dmcm/uwsgi_params
-            - ./uwsgi.sock:/opt/dmcm/uwsgi.sock
-            - ./static:/opt/dmcm/static
-            - ./media:/opt/dmcm/media
-            - ./templates:/opt/dmcm/templates
-        depends_on:
-            - webapp
-        ports:
-            - "4313:80"
 #    node:
 #        image: node:9
 #        working_dir: /node
@@ -36,7 +23,9 @@ services:
             - DMCM_DATABASE_NAME
             - POSTGRES_PASSWORD
             - DJANGO_SECRET_KEY
-        command: uwsgi --socket /opt/dmcm/uwsgi.sock --module project.wsgi --chmod-socket=777
+        command: python manage.py runserver 0.0.0.0:4313
+        ports:
+            - 4313:4313
         volumes:
             - .:/opt/dmcm
         working_dir: /opt/dmcm

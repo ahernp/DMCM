@@ -16,20 +16,11 @@
     <body>
         <div id="mainmenu">
             {{ mainmenu }}
+            {% block navlinks %}
+                <p><a href="{% url 'admin:index' %}">Admin</a></p>
+            {% endblock %}
             {% block pageinfo %}
                 <p>Generated {% now "Y-m-d H:i:s" %}</p>
-            {% endblock %}
-        </div>
-        <div id="content">
-            {% if messages %}
-                <ul class="messagelist">
-                    {% for message in messages %}
-                        <li class="{{ message.tags }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {% block content %}
-                <h2>Content</h2>
             {% endblock %}
         </div>
         <div id="sidebar">
@@ -43,6 +34,18 @@
                     autofocus>
             </form>
             {{ sidebar }}
+        </div>
+        <div id="content">
+            {% if messages %}
+                <ul class="messagelist">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% block content %}
+                <h2>Content</h2>
+            {% endblock %}
         </div>
         <script src="{% static "jquery-3.3.1.min.js" %}"></script>
         <script src="{% static "jquery.fancybox-3.3.5.min.js" %}"></script>
