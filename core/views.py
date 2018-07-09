@@ -24,7 +24,7 @@ class SearchView(TemplateView):
             content_vector = SearchVector("content", weight="B")
             page_vectors = title_vector + content_vector
 
-            context["pages"] = (
+            context["text_search_results"] = (
                 Page.objects.annotate(search=page_vectors)
                 .filter(search=search_query)
                 .annotate(rank=SearchRank(page_vectors, search_query))
@@ -33,8 +33,8 @@ class SearchView(TemplateView):
                 .annotate(content_highlight=Headline(F("content"), search_query))
             )
 
-            description_vector = SearchVector("description", weight="B")
-            entry_vectors = title_vector + description_vector
+            context["title_string_search_results"] = Page.objects.filter(title__icontains=search_string)
+            context["content_string_search_results"] = Page.objects.filter(content__icontains=search_string)
         else:
             context["error"] = "Search term must be at least 3 characters"
         context["search_string"] = search_string
