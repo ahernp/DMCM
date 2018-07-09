@@ -25,15 +25,21 @@
         </div>
         <div id="sidebar">
             <form action="{% url 'search' %}" method="GET">
-                <input                                      
-                    id="search_string"         
-                    type="text"                           
-                    name="search"                         
+                <input
+                    id="search_string"
+                    type="text"
+                    name="search"
                     placeholder="Search"
                     {% if search_string %}value="{{ search_string }}"{% endif %}
                     autofocus>
             </form>
-            {{ sidebar }}
+            <h3>Recent Updates</h3>
+            {% for update in sidebar.updates %}
+                <h4>{{ update.date }}</h4>
+                {% for page in update.pages %}
+                   <p><a href="{% url 'page-detail' page.slug %}">{{ page.title }}</a></p>
+                {% endfor %}
+            {% endfor %}
         </div>
         <div id="content">
             {% if messages %}

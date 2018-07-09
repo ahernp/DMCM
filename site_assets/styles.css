@@ -64,6 +64,10 @@ th, td {
     font-size: .9em;
 }
 
+#sidebar p, #sidebar h4 {
+    margin: 0;
+}
+
 #search_string {
     width: 11em;
     margin: 0.4em 0.5em;
