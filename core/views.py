@@ -59,8 +59,9 @@ class UploadView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
 
         cwd = settings.BASE_DIR
-        context["images"] = run_shell_command("ls media/img", cwd)
-        context["thumbnails"] = run_shell_command("ls media/img/thumb", cwd)
+        context["images"] = ", ".join(run_shell_command("ls media/img", cwd).split())
+        context["thumbnails"] = ", ".join(run_shell_command("ls media/img/thumb", cwd).split())
+        context["docs"] = ", ".join(run_shell_command("ls media/doc", cwd).split())
 
         return context
 
