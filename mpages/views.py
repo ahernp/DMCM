@@ -5,7 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404, redirect
 
-from .models import Page
+from .models import Page, PageRead
 
 
 class PageListView(ListView):
@@ -35,6 +35,7 @@ class PageDetailView(DetailView):
             slug = kwargs.get("slug", "")
             populate_fields = f"?slug={slug}&title={slug}"
             return redirect(reverse("admin:mpages_page_add") + populate_fields)
+        PageRead.objects.create(page=self.object)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 

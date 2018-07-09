@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Page, Tag
+from .models import Page, PageRead, Tag
 
 
 class PageAdmin(admin.ModelAdmin):
@@ -17,4 +17,5 @@ class PageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Page, PageAdmin)
+admin.site.register(PageRead)
 admin.site.register(Tag)
