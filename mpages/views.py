@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.urls import reverse
 from django.views.generic.detail import DetailView
@@ -38,6 +39,6 @@ class PageDetailView(DetailView):
         return self.render_to_response(context)
 
 
-class PageEditView(DetailView):
+class PageEditView(LoginRequiredMixin, DetailView):
     model = Page
     template_name = "mpages/page_edit.html"

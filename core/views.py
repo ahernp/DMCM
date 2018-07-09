@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.conf import settings
 from django.db.models import F
@@ -40,7 +41,7 @@ class SearchView(TemplateView):
         return context
 
 
-class UploadView(FormView):
+class UploadView(LoginRequiredMixin, FormView):
     template_name = "core/upload.html"
     form_class = UploadForm
 
