@@ -17,6 +17,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.label
 
+    @property
+    def dark_colour(self):
+        red = int(self.colour[1:3], 16)
+        blue = int(self.colour[3:5], 16)
+        green = int(self.colour[5:7], 16)
+        return (red + blue + green) < 420
+
 
 class Page(models.Model):
     title = models.CharField(max_length=250)

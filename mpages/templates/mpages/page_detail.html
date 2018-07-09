@@ -2,9 +2,19 @@
 
 {% block title %}{{ object.title }}{% endblock %}
 
-{% block extrastyle %}{% endblock %}
+{% block extrastyle %}
+    div#tags {
+        float: right;
+        text-align: center;
+    }
+{% endblock %}
 
 {% block content %}
+    <div id="tags">
+        {% for tag in object.tags.all %}
+        <p style="background-color:{{tag.colour}};{% if tag.dark_colour %}color:#fff;{% endif %}padding:2px;border-radius: 5px;margin:2px;">{{ tag }}</p>
+        {% endfor %}
+    </div>
     {{ object.content_as_html }}
 {% endblock %}
 

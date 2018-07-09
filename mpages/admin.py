@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Page
+from .models import Page, Tag
 
 
 class PageAdmin(admin.ModelAdmin):
@@ -9,10 +9,12 @@ class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["updated"]
     ordering = ["parent", "title"]
+    filter_horizontal = ('tags',)
     save_on_top = True
     fieldsets = (
-        (None, {"fields": (("content",), ("title", "parent"), ("slug", "updated"))}),
+        (None, {"fields": (("content",), ("title", "parent"), ("slug", "updated"), ("tags",))}),
     )
 
 
 admin.site.register(Page, PageAdmin)
+admin.site.register(Tag)
