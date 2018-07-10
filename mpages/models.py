@@ -42,6 +42,10 @@ class Page(models.Model):
             )
         )
 
+    @property
+    def list_tags(self):
+        return ", ".join([tag.label for tag in self.tags.all()])
+
     class Meta:
         ordering = ["title"]
 
