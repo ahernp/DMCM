@@ -16,9 +16,11 @@
     <body>
         <div id="mainmenu">
             {{ mainmenu }}
+            <hr>
             {% block navlinks %}
                 <p><a href="{% url 'admin:index' %}">Admin</a></p>
             {% endblock %}
+            <hr>
             {% block pageinfo %}
                 <p>Generated {% now "Y-m-d H:i:s" %}</p>
             {% endblock %}
