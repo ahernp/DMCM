@@ -43,6 +43,10 @@
                    <p><a href="{% url 'page-detail' page.slug %}">{{ page.title }}</a></p>
                 {% endfor %}
             {% endfor %}
+            <h3>Popular Pages</h3>
+            {% for page in sidebar.popular %}
+            <p><a href="{% url 'page-detail' page.page__slug %}">{{ page.page__title }}</a> ({{ page.total }})</p>
+            {% endfor %}
             <h3>Recent Pages</h3>
             {% for page in sidebar.recent %}
                 <p><a href="{% url 'page-detail' page.slug %}">{{ page.title }}</a></p>
