@@ -25,6 +25,12 @@ a[href^="/"] {
     font-weight: bold;
     text-decoration: none;
 }
+
+a[href^="/media/"] {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
 code {
     font-family: monospace;
     font-size: 1.5em;
