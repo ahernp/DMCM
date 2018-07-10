@@ -35,6 +35,7 @@
                     {% if search_string %}value="{{ search_string }}"{% endif %}
                     autofocus>
             </form>
+            <p><a href="{% url 'admin:mpages_page_add' %}">Add Page</a></p>
             <h3>Page Updates</h3>
             {% for update in sidebar.updates %}
                 <h4>{{ update.date }}</h4>
