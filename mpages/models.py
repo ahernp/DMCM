@@ -32,7 +32,7 @@ class Page(models.Model):
     created = models.DateTimeField(verbose_name="Time Created", auto_now_add=True)
     updated = models.DateTimeField(verbose_name="Time Updated", auto_now=True)
     content = models.TextField(verbose_name="Page content", blank=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     @property
     def content_as_html(self):
