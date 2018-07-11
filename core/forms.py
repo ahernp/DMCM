@@ -18,3 +18,9 @@ FILE_TYPE_CHOICES = (
 class UploadForm(forms.Form):
     upload_file = forms.FileField()
     upload_type = forms.ChoiceField(choices=FILE_TYPE_CHOICES, initial=IMAGE)
+
+    def clean_upload_file(self):
+        data = self.cleaned_data["upload_file"]
+        if " " in data.name:
+            raise forms.ValidationError("Spaces in filename not allowed")
+        return data
