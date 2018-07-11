@@ -24,14 +24,14 @@ def menus(request):
         if len(recent) == 10:
             break
 
-    popular = PageRead.objects.all().values("page__slug", "page__title").annotate(total=Count("page__slug")).order_by("-total", "page__slug")[:10]
+    popular = PageRead.objects.all().values("page__slug", "page__title").annotate(total=Count("page__slug")).order_by("-total", "page__slug")[:11]
 
     return {
         "mainmenu": main_menu.content_as_html,
         "sidebar": {
             "updates": list(updates.values()),
             "recent": recent,
-            "popular": popular,
+            "popular": popular[1:11],
         },
         "request": request,
     }
