@@ -15,7 +15,9 @@ class Command(BaseCommand):
     help = "Deletes older PageRead rows."
 
     def add_arguments(self, parser):
-        parser.add_argument("keep_delta", nargs="?", default=settings.KEEP_PAGEREAD_FOR_DAYS, type=int)
+        parser.add_argument(
+            "keep_delta", nargs="?", default=settings.KEEP_PAGEREAD_FOR_DAYS, type=int
+        )
         parser.add_argument(
             "--verbose",
             action="store_true",
@@ -33,7 +35,9 @@ class Command(BaseCommand):
 
         if verbose:
             pageread__count = PageRead.objects.filter(created__lt=delete_before).count()
-            print(f"{pageread_count} PageRead entries to delete (older than {delete_before} days)")
+            print(
+                f"{pageread_count} PageRead entries to delete (older than {delete_before} days)"
+            )
 
         PageRead.objects.filter(created__lt=delete_before).delete()
 

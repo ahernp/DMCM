@@ -102,13 +102,7 @@ LOGGING = {
             "formatter": "dmcm",
         }
     },
-    "loggers": {
-        "": {
-            "handlers": ["db_log"],
-            "level": "INFO",
-            "propagate": True,
-        }
-    },
+    "loggers": {"": {"handlers": ["db_log"], "level": "INFO", "propagate": True}},
 }
 
 TIME_ZONE = "Europe/London"

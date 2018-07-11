@@ -15,7 +15,9 @@ class Command(BaseCommand):
     help = "Deletes older Log entries."
 
     def add_arguments(self, parser):
-        parser.add_argument("keep_delta", nargs="?", default=settings.KEEP_LOGS_FOR_DAYS, type=int)
+        parser.add_argument(
+            "keep_delta", nargs="?", default=settings.KEEP_LOGS_FOR_DAYS, type=int
+        )
         parser.add_argument(
             "--verbose",
             action="store_true",
@@ -33,7 +35,9 @@ class Command(BaseCommand):
 
         if verbose:
             log_count = Log.objects.filter(datetime__lt=delete_before).count()
-            print(f"{log_count} Log entries to delete (older than {delete_before} days)")
+            print(
+                f"{log_count} Log entries to delete (older than {delete_before} days)"
+            )
 
         Log.objects.filter(datetime__lt=delete_before).delete()
 

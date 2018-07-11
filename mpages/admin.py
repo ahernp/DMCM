@@ -9,10 +9,20 @@ class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["updated"]
     ordering = ["parent", "title"]
-    filter_horizontal = ('tags',)
+    filter_horizontal = ("tags",)
     save_on_top = True
     fieldsets = (
-        (None, {"fields": (("content",), ("title", "parent"), ("slug", "updated"), ("tags",))}),
+        (
+            None,
+            {
+                "fields": (
+                    ("content",),
+                    ("title", "parent"),
+                    ("slug", "updated"),
+                    ("tags",),
+                )
+            },
+        ),
     )
 
 

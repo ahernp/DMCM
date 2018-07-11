@@ -33,8 +33,12 @@ class SearchView(TemplateView):
                 .annotate(content_highlight=Headline(F("content"), search_query))
             )
 
-            context["title_string_search_results"] = Page.objects.filter(title__icontains=search_string)
-            context["content_string_search_results"] = Page.objects.filter(content__icontains=search_string)
+            context["title_string_search_results"] = Page.objects.filter(
+                title__icontains=search_string
+            )
+            context["content_string_search_results"] = Page.objects.filter(
+                content__icontains=search_string
+            )
         else:
             context["error"] = "Search term must be at least 3 characters"
         context["search_string"] = search_string
@@ -61,13 +65,17 @@ class UploadView(LoginRequiredMixin, FormView):
         cwd = settings.BASE_DIR
         uploads = []
         for upload_type in FILE_TYPE_CHOICES:
-            for filename in run_shell_command(f"ls media/{upload_type.directory}", cwd).split():
-                uploads.append({
-                    "type": upload_type.label,
-                    "directory": upload_type.directory,
-                    "filename": filename,
-                })
-            
+            for filename in run_shell_command(
+                f"ls media/{upload_type.directory}", cwd
+            ).split():
+                uploads.append(
+                    {
+                        "type": upload_type.label,
+                        "directory": upload_type.directory,
+                        "filename": filename,
+                    }
+                )
+
         context["uploads"] = uploads
 
         return context
