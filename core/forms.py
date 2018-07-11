@@ -1,13 +1,17 @@
+from collections import namedtuple
+
 from django import forms
 
 IMAGE = "img"
-THUMBNAIL = "img/thumbnail"
-DOC = "doc"
+
+UploadType = namedtuple("UploadType", ["directory", "label"])
 
 FILE_TYPE_CHOICES = (
-    (IMAGE, "Image"),
-    (THUMBNAIL, "Thumbnail"),
-    (DOC, "Document"),
+    UploadType(directory=IMAGE, label="Image"),
+    UploadType(directory="thumb", label="Thumbnail"),
+    UploadType(directory="doc", label="Document"),
+    UploadType(directory="code", label="Code"),
+    UploadType(directory="pres", label="Presentation"),
 )
 
 
