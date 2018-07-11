@@ -12,14 +12,20 @@
         <button type="submit">Upload</button>
     </form>
 
-    <h2>Documents</h2>
-    {{ docs }}.
-
-    <h2>Images</h2>
-    {{ images }}.
-
-    <h2>Thumbnails</h2>
-    {{ thumbnails }}.
+    <h2>Uploaded Files</h2>
+    <table>
+        <thead>
+            <tr><th>Filename</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+            {% for upload in uploads %}
+                <tr>
+                    <td><a href="/media/{{upload.directory}}/{{upload.filename}}">{{ upload.filename }}</a></td>
+                    <td>{{ upload.type }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
 {% block extrascript %}{% endblock %}

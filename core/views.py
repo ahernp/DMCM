@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from .forms import UploadForm
+from .forms import UploadForm, FILE_TYPE_CHOICES
 from .utils import Headline, run_shell_command
 from mpages.models import Page
 
@@ -59,9 +59,16 @@ class UploadView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
 
         cwd = settings.BASE_DIR
-        context["images"] = ", ".join(run_shell_command("ls media/img", cwd).split())
-        context["thumbnails"] = ", ".join(run_shell_command("ls media/img/thumb", cwd).split())
-        context["docs"] = ", ".join(run_shell_command("ls media/doc", cwd).split())
+        uploads = []
+        for upload_type in FILE_TYPE_CHOICES:
+            for filename in run_shell_command(f"ls media/{upload_type.directory}", cwd).split():
+                uploads.append({
+                    "type": upload_type.label,
+                    "directory": upload_type.directory,
+                    "filename": filename,
+                })
+            
+        context["uploads"] = uploads
 
         return context
 
