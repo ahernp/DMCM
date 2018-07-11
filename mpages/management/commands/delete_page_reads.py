@@ -1,10 +1,10 @@
 from datetime import timedelta
 
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from django.conf import settings
 
-from ...models import Log
+from ...models import PageRead
 
 import logging
 
@@ -12,10 +12,10 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    help = "Deletes older Log entries."
+    help = "Deletes older PageRead rows."
 
     def add_arguments(self, parser):
-        parser.add_argument("keep_delta", nargs="?", default=settings.KEEP_LOGS_FOR_DAYS, type=int)
+        parser.add_argument("keep_delta", nargs="?", default=settings.KEEP_PAGEREAD_FOR_DAYS, type=int)
         parser.add_argument(
             "--verbose",
             action="store_true",
@@ -32,9 +32,9 @@ class Command(BaseCommand):
         delete_before = timezone.now() - timedelta(days=keep_delta)
 
         if verbose:
-            log_count = Log.objects.filter(datetime__lt=delete_before).count()
-            print(f"{log_count} Log entries to delete (older than {delete_before} days)")
+            pageread__count = PageRead.objects.filter(created__lt=delete_before).count()
+            print(f"{pageread_count} PageRead entries to delete (older than {delete_before} days)")
 
-        Log.objects.filter(datetime__lt=delete_before).delete()
+        PageRead.objects.filter(created__lt=delete_before).delete()
 
-        logger.info("Older Log entries deleted successfully")
+        logger.info("Older PageRead rows deleted successfully")

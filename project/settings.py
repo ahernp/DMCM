@@ -103,7 +103,7 @@ LOGGING = {
         }
     },
     "loggers": {
-        "core.management.commands.delete_logs": {
+        "": {
             "handlers": ["db_log"],
             "level": "INFO",
             "propagate": True,
@@ -119,4 +119,7 @@ SITE_NAME = "DMCM"
 HOMEPAGE_SLUG = "home"
 
 # Dashboard
-LOG_ENTRIES_TO_SHOW = 5
+LOG_ENTRIES_TO_SHOW = 10
+
+KEEP_LOGS_FOR_DAYS = 7
+KEEP_PAGEREAD_FOR_DAYS = 7
