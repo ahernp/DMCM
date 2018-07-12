@@ -66,7 +66,7 @@ class UploadView(LoginRequiredMixin, FormView):
         uploads = []
         for upload_type in FILE_TYPE_CHOICES:
             for filename in run_shell_command(
-                f"ls media/{upload_type.directory}", cwd
+                f"ls media/{upload_type.directory}/*.*", cwd
             ).split():
                 uploads.append(
                     {
