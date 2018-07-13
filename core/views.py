@@ -72,7 +72,7 @@ class UploadView(LoginRequiredMixin, FormView):
                     {
                         "type": upload_type.label,
                         "directory": upload_type.directory,
-                        "filename": filename,
+                        "filename": filename.split("/")[2],
                     }
                 )
 
