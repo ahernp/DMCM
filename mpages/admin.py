@@ -25,6 +25,11 @@ class PageAdmin(admin.ModelAdmin):
         ),
     )
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "parent":
+            kwargs["queryset"] = Page.objects.order_by("title")
+        return super(PageAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 admin.site.register(Page, PageAdmin)
 admin.site.register(PageRead)
