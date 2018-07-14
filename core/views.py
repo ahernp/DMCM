@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.conf import settings
@@ -17,6 +19,7 @@ class SearchView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         search_string = self.request.GET.get("search", "")
+        results = OrderedDict()
         if len(search_string) >= 3:
             search_query = SearchQuery(search_string)
             title_vector = SearchVector("title", weight="A")
@@ -24,27 +27,39 @@ class SearchView(TemplateView):
             content_vector = SearchVector("content", weight="B")
             page_vectors = title_vector + content_vector
 
-            context["text_search_results"] = (
-                Page.objects.annotate(search=page_vectors)
+            pages = (Page.objects.annotate(search=page_vectors)
                 .filter(search=search_query)
                 .annotate(rank=SearchRank(page_vectors, search_query))
                 .order_by("-rank")
                 .annotate(title_highlight=Headline(F("title"), search_query))
-                .annotate(content_highlight=Headline(F("content"), search_query))
-            )
+                .annotate(content_highlight=Headline(F("content"), search_query)))
+
+            for page in pages:
+                results[page.slug] = {
+                    "slug": page.slug,
+                    "title_highlight": page.title_highlight,
+                    "content_highlight": page.content_highlight,
+                }
 
             pages = Page.objects.filter(title__icontains=search_string)
-            context["title_string_search_results"] = [{
-                "title_highlight": highlight_matching_substring(page.title, search_string),
-                "slug": page.slug,
-                } for page in pages]
+            for page in pages:
+                if page.slug not in results:
+                    results[page.slug] = {
+                        "slug": page.slug,
+                        "title_highlight": highlight_matching_substring(page.title, search_string),
+                        "content_highlight": highlight_matching_substring(page.content, search_string),
+                    }
 
             pages = Page.objects.filter(content__icontains=search_string)
-            context["content_string_search_results"] = [{
-                "title": page.title,
-                "slug": page.slug,
-                "content_highlight": highlight_matching_substring(page.content, search_string),
-                } for page in pages]
+            for page in pages:
+                if page.slug not in results:
+                    results[page.slug] = {
+                        "slug": page.slug,
+                        "title_highlight": highlight_matching_substring(page.title, search_string),
+                        "content_highlight": highlight_matching_substring(page.content, search_string),
+                    }
+
+            context["results"] = list(results.values())
         else:
             context["error"] = "Search term must be at least 3 characters"
         context["search_string"] = search_string

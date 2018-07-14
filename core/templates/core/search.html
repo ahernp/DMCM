@@ -10,31 +10,13 @@
     {% if error %}
         <p class="highlight">{{ error }}</p>
     {% endif %}
-    {% if text_search_results or title_string_search_results or content_string_search_results %}
-        <h2>
-            {% if text_search_results %}
-                {{ text_search_results|length}} Pages with Matching Text
-            {% else %}
-                Pages with String Matches
-                ({{ title_string_search_results|length }} Matching Titles
-                {{ content_string_search_results|length }} Matching Content)
-            {% endif %}
-        </h2>
+    {% if results %}
+        <h2>{{ results|length}} Pages Found</h2>
         <ol>
-        {% if text_search_results %}
-            {% for page in text_search_results %}
-                <li><a href="{% url 'page-detail' page.slug %}">{{ page.title_highlight|safe }}</a></li>
-                <ul><li>{{ page.content_highlight|safe }}...</li></ul>
-            {% endfor %}
-        {% else %}
-            {% for result in title_string_search_results %}
+            {% for result in results %}
                 <li><a href="{% url 'page-detail' result.slug %}">{{ result.title_highlight|safe }}</a></li>
-            {% endfor %}
-            {% for result in content_string_search_results %}
-                <li><a href="{% url 'page-detail' result.slug %}">{{ result.title|safe }}</a></li>
                 <ul><li>{{ result.content_highlight|safe }}</li></ul>
             {% endfor %}
-        {% endif %}
         </ol>
     {% else %}
         <p>No matches found</p>

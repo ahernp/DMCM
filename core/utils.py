@@ -34,16 +34,16 @@ def highlight_matching_substring(string, substring, delimiter="b", max_length=10
     substring_position = lowercase_string.find(substring)
 
     if substring_position < 0:
-        return f"{string[:max_length]}..."
+        return f"{string[:max_length]}..." if len(string) > max_length else string
 
     if (substring_position + len(substring) + delimiters_length) > max_length:
-        previous_newline_position = string.rfind("\n", substring_position)
+        previous_newline_position = lowercase_string.rfind("\n", 0, substring_position)
         if previous_newline_position > -1 and (substring_position - previous_newline_position) < max_length:
-            string = string[previous_newline_position:]
+            string = string[previous_newline_position + 1:]
         else:
-            previous_space_position = string.rfind(" ", substring_position)
+            previous_space_position = lowercase_string.rfind(" ", 0, substring_position)
             if previous_space_position > -1 and (substring_position - previous_space_position) < max_length:
-                string = string[previous_space_position:]
+                string = string[previous_space_position + 1:]
             else:
                 string = string[substring_position:]
         lowercase_string = string.casefold()
