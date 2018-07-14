@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from .forms import UploadForm, FILE_TYPE_CHOICES
-from .utils import Headline, run_shell_command
+from .utils import Headline, highlight_matching_substring, run_shell_command
 from mpages.models import Page
 
 
@@ -33,12 +33,18 @@ class SearchView(TemplateView):
                 .annotate(content_highlight=Headline(F("content"), search_query))
             )
 
-            context["title_string_search_results"] = Page.objects.filter(
-                title__icontains=search_string
-            )
-            context["content_string_search_results"] = Page.objects.filter(
-                content__icontains=search_string
-            )
+            pages = Page.objects.filter(title__icontains=search_string)
+            context["title_string_search_results"] = [{
+                "title_highlight": highlight_matching_substring(page.title, search_string),
+                "slug": page.slug,
+                } for page in pages]
+
+            pages = Page.objects.filter(content__icontains=search_string)
+            context["content_string_search_results"] = [{
+                "title": page.title,
+                "slug": page.slug,
+                "content_highlight": highlight_matching_substring(page.content, search_string),
+                } for page in pages]
         else:
             context["error"] = "Search term must be at least 3 characters"
         context["search_string"] = search_string
