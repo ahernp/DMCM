@@ -35,8 +35,10 @@ def test_recent_logs():
 
 
 @pytest.mark.parametrize("string, substring, expected_result", [
-    ("In the beginning", "wibble", "<b>beg</b>inning"),
+    ("In the beginning", "wibble", "In the beg..."),
+    ("In the\nbeginning", "beg", "<b>beg</b>inning"),
     ("In the beginning", "beg", "<b>beg</b>inning"),
+    ("Inthebeginning", "beg", "<b>beg</b>inning"),
     ("Beg leave to report", "beg", "<b>Beg</b> leave ..."),
 ])
 def test_highlight_matching_substring(string, substring, expected_result):
