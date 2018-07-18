@@ -33,12 +33,13 @@ class Command(BaseCommand):
 
         delete_before = timezone.now() - timedelta(days=keep_delta)
 
+        log_count = Log.objects.filter(datetime__lt=delete_before).count()
+
         if verbose:
-            log_count = Log.objects.filter(datetime__lt=delete_before).count()
             print(
                 f"{log_count} Log entries to delete (older than {delete_before} days)"
             )
 
         Log.objects.filter(datetime__lt=delete_before).delete()
 
-        logger.info("Older Log entries deleted successfully")
+        logger.info(f"{log_count} older Log entries deleted successfully")

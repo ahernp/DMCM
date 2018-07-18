@@ -33,12 +33,13 @@ class Command(BaseCommand):
 
         delete_before = timezone.now() - timedelta(days=keep_delta)
 
+        pageread__count = PageRead.objects.filter(created__lt=delete_before).count()
+
         if verbose:
-            pageread__count = PageRead.objects.filter(created__lt=delete_before).count()
             print(
                 f"{pageread_count} PageRead entries to delete (older than {delete_before} days)"
             )
 
         PageRead.objects.filter(created__lt=delete_before).delete()
 
-        logger.info("Older PageRead rows deleted successfully")
+        logger.info(f"{pageread__count} older PageRead rows deleted successfully")
