@@ -42,4 +42,4 @@ class Command(BaseCommand):
 
         PageRead.objects.filter(created__lt=delete_before).delete()
 
-        logger.info(f"{pageread__count} older PageRead rows deleted successfully")
+        logger.info(f"{pageread__count} older PageRead rows deleted")
