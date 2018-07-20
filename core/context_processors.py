@@ -8,7 +8,7 @@ from mpages.models import Page, PageRead
 def menus(request):
     main_menu = Page.objects.get(slug="main-menu")
 
-    recent_updates = Page.objects.all().order_by("-updated")[:10]
+    recent_updates = Page.objects.all().order_by("-updated")[:11]
     updates = OrderedDict()
     for page in recent_updates:
         update_date = page.updated.strftime("%Y-%m-%d")
@@ -35,7 +35,7 @@ def menus(request):
         "mainmenu": main_menu.content_as_html,
         "sidebar": {
             "updates": list(updates.values()),
-            "recent": recent,
+            "recent": recent[1:11],
             "popular": popular[1:11],
         },
         "request": request,
