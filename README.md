@@ -15,14 +15,14 @@ Tested on Ubuntu 18.04.
 1. Make a copy of this project: `git clone https://github.com/ahernp/dmcm.git`
 1. Create a `.env` file in the root directory of the project with the following structure:
 
-    DJANGO_SECRET_KEY=
-    DMCM_DATABASE_NAME=
-    DMCM_DATABASE_USER=
-    DMCM_DATABASE_PASSWORD=
-    POSTGRES_PASSWORD=
+        DJANGO_SECRET_KEY=
+        DMCM_DATABASE_NAME=
+        DMCM_DATABASE_USER=
+        DMCM_DATABASE_PASSWORD=
+        POSTGRES_PASSWORD=
 
 1. In the root directory of the project run: `docker-compose up`
-1. In another terminal run: 
+1. In another terminal run:
    1. Create database: `docker-compose exec db createdb -U postgres dmcm`
    1. In `docker-compose exec db psql -U postgres dmcm`:
       1. `CREATE USER dmcm WITH PASSWORD 'database password from .env';`
