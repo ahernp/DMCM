@@ -33,6 +33,7 @@ code {
     font-family: monospace;
     font-size: 1.2em;
     color: #800;
+    white-space: pre-wrap;
 }
 
 table {
