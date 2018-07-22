@@ -38,6 +38,11 @@ code {
 
 table {
     border-collapse: collapse;
+    text-align: center;
+}
+
+table.non-datatable {
+    width: 100%;
 }
 
 th, td {
