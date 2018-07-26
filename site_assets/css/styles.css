@@ -52,10 +52,10 @@ th, td {
 #mainmenu {
     position: fixed;
     left: 0;
-    width: 10em;
+    width: 6em;
     text-align: right;
     line-height: 1.6em;
-    padding: 1.5em 0.5em 0.5em 0.5em;
+    padding: 0 0.5em 0.5em 0.5em;
     font-size: 1.1em;
 }
 
@@ -64,7 +64,7 @@ th, td {
 }
 
 #content {
-    margin: 1em 17em 0 14em;
+    margin: 1em 17em 0 9em;
 }
 
 #sidebar {
