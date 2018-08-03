@@ -31,6 +31,10 @@ class PageAdmin(admin.ModelAdmin):
         return super(PageAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
+class PageReadAdmin(admin.ModelAdmin):
+    search_fields = ["page__title"]
+
+
 admin.site.register(Page, PageAdmin)
-admin.site.register(PageRead)
+admin.site.register(PageRead, PageReadAdmin)
 admin.site.register(Tag)
