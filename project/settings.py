@@ -111,6 +111,7 @@ LOGIN_URL = "/admin/login"
 
 SITE_NAME = "DMCM"
 HOMEPAGE_SLUG = "home"
+TASK_LIST_SLUG = "task-list"
 
 # Dashboard
 LOG_ENTRIES_TO_SHOW = 10

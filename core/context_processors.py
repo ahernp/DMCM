@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from django.conf import settings
 from django.db.models import Count
 
 from mpages.models import Page, PageRead
@@ -25,7 +26,8 @@ def menus(request):
             break
 
     popular = (
-        PageRead.objects.all()
+        PageRead.objects.exclude(page__slug=settings.HOMEPAGE_SLUG)
+        .exclude(page__slug=settings.TASK_LIST_SLUG)
         .values("page__slug", "page__title")
         .annotate(total=Count("page__slug"))
         .order_by("-total", "page__slug")[:11]
