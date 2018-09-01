@@ -30,7 +30,7 @@ def menus(request):
         .exclude(page__slug=settings.TASK_LIST_SLUG)
         .values("page__slug", "page__title")
         .annotate(total=Count("page__slug"))
-        .order_by("-total", "page__slug")[:11]
+        .order_by("-total", "page__slug")[:10]
     )
 
     return {
@@ -38,7 +38,7 @@ def menus(request):
         "sidebar": {
             "updates": list(updates.values()),
             "recent": recent[1:11],
-            "popular": popular[1:11],
+            "popular": popular,
         },
         "request": request,
     }
