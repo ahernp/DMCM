@@ -7,6 +7,7 @@ WORKDIR /webapp
 
 COPY ./requirements.txt /webapp/
 
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 EXPOSE 4313
