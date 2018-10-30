@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.TimerListView.as_view(), name="timers"),
-    path("<int:pk>/", views.TimerDetailView.as_view(), name="timer-detail"),
+    path("<slug:slug>/", views.TimerDetailView.as_view(), name="timer-detail"),
 ]
