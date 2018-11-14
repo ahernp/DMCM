@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
         delete_before = timezone.now() - timedelta(days=keep_delta)
 
-        pageread__count = PageRead.objects.filter(created__lt=delete_before).count()
+        pageread_count = PageRead.objects.filter(created__lt=delete_before).count()
 
         if verbose:
             print(
@@ -42,4 +42,4 @@ class Command(BaseCommand):
 
         PageRead.objects.filter(created__lt=delete_before).delete()
 
-        logger.info(f"{pageread__count} older PageRead rows deleted")
+        logger.info("%s older PageRead rows deleted", pageread_count)

@@ -42,4 +42,4 @@ class Command(BaseCommand):
 
         Log.objects.filter(datetime__lt=delete_before).delete()
 
-        logger.info(f"{log_count} older Log entries deleted")
+        logger.info(f"%s older Log entries deleted", log_count)

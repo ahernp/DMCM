@@ -31,7 +31,7 @@ def highlight_matching_substring(string, substring, delimiter="b", max_length=10
     delimiters_length = len(f"<{delimiter}></{delimiter}>")
     lowercase_string = string.casefold()
     lowercase_substring = substring.casefold()
-    substring_position = lowercase_string.find(substring)
+    substring_position = lowercase_string.find(lowercase_substring)
 
     if substring_position < 0:
         return f"{string[:max_length]}..." if len(string) > max_length else string
@@ -47,12 +47,11 @@ def highlight_matching_substring(string, substring, delimiter="b", max_length=10
             else:
                 string = string[substring_position:]
         lowercase_string = string.casefold()
-        substring_position = lowercase_string.find(substring)
+        substring_position = lowercase_string.find(lowercase_substring)
 
     substring_end = substring_position+len(substring)
     highlighted_string = f"{string[:substring_position]}<{delimiter}>{string[substring_position:substring_end]}</{delimiter}>{string[substring_end:]}"
 
     if len(highlighted_string) > (max_length + delimiters_length):
         return f"{highlighted_string[:max_length + delimiters_length]}..."
-    else:
-        return highlighted_string
+    return highlighted_string
