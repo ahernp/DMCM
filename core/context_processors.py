@@ -9,7 +9,7 @@ from mpages.models import Page, PageRead
 def menus(request):
     main_menu = Page.objects.get(slug="main-menu")
 
-    recent_updates = Page.objects.all().order_by("-updated")[:11]
+    recent_updates = Page.objects.all().order_by("-updated")[:5]
     updates = OrderedDict()
     for page in recent_updates:
         update_date = page.updated.strftime("%Y-%m-%d")
@@ -22,7 +22,7 @@ def menus(request):
     for page_read in page_reads:
         if page_read.page not in recent:
             recent.append(page_read.page)
-        if len(recent) == 10:
+        if len(recent) == 6:
             break
 
     popular = (
@@ -30,14 +30,14 @@ def menus(request):
         .exclude(page__slug=settings.TASK_LIST_SLUG)
         .values("page__slug", "page__title")
         .annotate(total=Count("page__slug"))
-        .order_by("-total", "page__slug")[:10]
+        .order_by("-total", "page__slug")[:5]
     )
 
     return {
         "mainmenu": main_menu.content_as_html,
         "sidebar": {
             "updates": list(updates.values()),
-            "recent": recent[1:11],
+            "recent": recent[1:],
             "popular": popular,
         },
         "request": request,

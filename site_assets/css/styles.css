@@ -7,6 +7,8 @@ body  {
     background-color: #fff;
     color: #000;
     margin: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 h1, h2, h3, h4, th {
@@ -19,6 +21,11 @@ h1 {
 
 a {
     color: #050;
+}
+
+a:hover {
+    color: #fff;
+    background: #050;
 }
 
 a[href^="/"] {
@@ -64,18 +71,22 @@ th, td {
 }
 
 #content {
-    margin: 1em 17em 0 9em;
+    margin: 1em 13em 0 9em;
 }
 
 #sidebar {
     position: absolute;
     right: 3px;
-    width: 16em;
+    width: 12em;
     font-size: .9em;
 }
 
 #sidebar p, #sidebar h4 {
     margin: 0;
+}
+
+#sidebar h3 {
+    margin: 5px 0;
 }
 
 #search_string {
@@ -94,6 +105,7 @@ th, td {
 .errorlist, .highlight {
     background-color: #800;
     color: white;
+    padding: 0 2px;
 }
 
 .pure-g.gutters{

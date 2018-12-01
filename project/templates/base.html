@@ -36,18 +36,21 @@
                     autofocus>
             </form>
             <p><a href="{% url 'admin:mpages_page_add' %}">Add Page</a></p>
-            <h3 title="Most recently updated">Page Updates</h3>
+            <h2>Page History</h2>
+            <h3 title="Most recently updated">Changed</h3>
             {% for update in sidebar.updates %}
                 <h4>{{ update.date }}</h4>
                 {% for page in update.pages %}
                    <p><a href="{% url 'page-detail' page.slug %}">{{ page.title }}</a></p>
                 {% endfor %}
             {% endfor %}
-            <h3 title="Recently read most frequently">Popular Pages</h3>
+            <hr>
+            <h3 title="Recently read most frequently">Popular</h3>
             {% for page in sidebar.popular %}
             <p><a href="{% url 'page-detail' page.page__slug %}">{{ page.page__title }}</a> ({{ page.total }})</p>
             {% endfor %}
-            <h3 title="Most recently read">Recent Pages</h3>
+            <hr>
+            <h3 title="Most recently read">Timeline</h3>
             {% for page in sidebar.recent %}
                 <p><a href="{% url 'page-detail' page.slug %}">{{ page.title }}</a></p>
             {% endfor %}
