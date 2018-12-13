@@ -10,8 +10,14 @@
     {% if error %}
         <p class="highlight">{{ error }}</p>
     {% endif %}
-    {% if results %}
-        <h2>{{ results|length}} Pages Found</h2>
+    {% if results or uploads %}
+        <h2>{{ uploads|length }} Uploads Found</h2>
+        <ol>
+            {% for upload in uploads %}
+                <li><a href="/media/{{upload.directory}}/{{upload.filename}}">{{ upload.filename_highlight|safe }}</a></li>
+            {% endfor %}
+        </ol>
+        <h2>{{ results|length }} Pages Found</h2>
         <ol>
             {% for result in results %}
                 <li><a href="{% url 'page-detail' result.slug %}">{{ result.title_highlight|safe }}</a></li>

@@ -13,6 +13,23 @@ from .utils import Headline, highlight_matching_substring, run_shell_command
 from mpages.models import Page
 
 
+def list_uploads():
+    cwd = settings.BASE_DIR
+    uploads = []
+    for upload_type in FILE_TYPE_CHOICES:
+        for filename in run_shell_command(
+            f"ls media/{upload_type.directory}/*.*", cwd
+        ).split():
+            uploads.append(
+                {
+                    "type": upload_type.label,
+                    "directory": upload_type.directory,
+                    "filename": filename.split("/")[2],
+                }
+            )
+    return uploads
+
+
 class SearchView(TemplateView):
     template_name = "core/search.html"
 
@@ -60,6 +77,11 @@ class SearchView(TemplateView):
                     }
 
             context["results"] = list(results.values())
+
+            uploads = [upload for upload in list_uploads() if search_string.lower() in upload["filename"].lower()]
+            for upload in uploads:
+                upload["filename_highlight"] = highlight_matching_substring(upload["filename"], search_string)
+            context["uploads"] = uploads
         else:
             context["error"] = "Search term must be at least 3 characters"
         context["search_string"] = search_string
@@ -83,21 +105,7 @@ class UploadView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        cwd = settings.BASE_DIR
-        uploads = []
-        for upload_type in FILE_TYPE_CHOICES:
-            for filename in run_shell_command(
-                f"ls media/{upload_type.directory}/*.*", cwd
-            ).split():
-                uploads.append(
-                    {
-                        "type": upload_type.label,
-                        "directory": upload_type.directory,
-                        "filename": filename.split("/")[2],
-                    }
-                )
-
-        context["uploads"] = uploads
+        context["uploads"] = list_uploads()
 
         return context
 
