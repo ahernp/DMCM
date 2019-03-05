@@ -10,6 +10,7 @@ from mpages.factories import PageFactory
 from .factories import LogFactory
 from .utils import highlight_matching_substring
 
+
 @pytest.mark.django_db
 def test_search(client):
     page = PageFactory.create()
@@ -34,13 +35,16 @@ def test_recent_logs():
     assert log.recent() == False, "Two day old log is not recent"
 
 
-@pytest.mark.parametrize("string, substring, expected_result", [
-    ("In the beginning", "wibble", "In the beg..."),
-    ("In the\nbeginning", "beg", "<b>beg</b>inning"),
-    ("In the beginning", "beg", "<b>beg</b>inning"),
-    ("Inthebeginning", "beg", "<b>beg</b>inning"),
-    ("Beg leave to report", "beg", "<b>Beg</b> leave ..."),
-])
+@pytest.mark.parametrize(
+    "string, substring, expected_result",
+    [
+        ("In the beginning", "wibble", "In the beg..."),
+        ("In the\nbeginning", "beg", "<b>beg</b>inning"),
+        ("In the beginning", "beg", "<b>beg</b>inning"),
+        ("Inthebeginning", "beg", "<b>beg</b>inning"),
+        ("Beg leave to report", "beg", "<b>Beg</b> leave ..."),
+    ],
+)
 def test_highlight_matching_substring(string, substring, expected_result):
     result = highlight_matching_substring(string, substring, max_length=10)
     assert result == expected_result

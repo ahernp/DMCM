@@ -44,12 +44,14 @@ class SearchView(TemplateView):
             content_vector = SearchVector("content", weight="B")
             page_vectors = title_vector + content_vector
 
-            pages = (Page.objects.annotate(search=page_vectors)
+            pages = (
+                Page.objects.annotate(search=page_vectors)
                 .filter(search=search_query)
                 .annotate(rank=SearchRank(page_vectors, search_query))
                 .order_by("-rank")
                 .annotate(title_highlight=Headline(F("title"), search_query))
-                .annotate(content_highlight=Headline(F("content"), search_query)))
+                .annotate(content_highlight=Headline(F("content"), search_query))
+            )
 
             for page in pages:
                 results[page.slug] = {
@@ -63,8 +65,12 @@ class SearchView(TemplateView):
                 if page.slug not in results:
                     results[page.slug] = {
                         "slug": page.slug,
-                        "title_highlight": highlight_matching_substring(page.title, search_string),
-                        "content_highlight": highlight_matching_substring(page.content, search_string),
+                        "title_highlight": highlight_matching_substring(
+                            page.title, search_string
+                        ),
+                        "content_highlight": highlight_matching_substring(
+                            page.content, search_string
+                        ),
                     }
 
             pages = Page.objects.filter(content__icontains=search_string)
@@ -72,15 +78,25 @@ class SearchView(TemplateView):
                 if page.slug not in results:
                     results[page.slug] = {
                         "slug": page.slug,
-                        "title_highlight": highlight_matching_substring(page.title, search_string),
-                        "content_highlight": highlight_matching_substring(page.content, search_string),
+                        "title_highlight": highlight_matching_substring(
+                            page.title, search_string
+                        ),
+                        "content_highlight": highlight_matching_substring(
+                            page.content, search_string
+                        ),
                     }
 
             context["results"] = list(results.values())
 
-            uploads = [upload for upload in list_uploads() if search_string.lower() in upload["filename"].lower()]
+            uploads = [
+                upload
+                for upload in list_uploads()
+                if search_string.lower() in upload["filename"].lower()
+            ]
             for upload in uploads:
-                upload["filename_highlight"] = highlight_matching_substring(upload["filename"], search_string)
+                upload["filename_highlight"] = highlight_matching_substring(
+                    upload["filename"], search_string
+                )
             context["uploads"] = uploads
         else:
             context["error"] = "Search term must be at least 3 characters"

@@ -36,7 +36,9 @@ def test_list_filter_view(client):
 @pytest.mark.django_db
 def test_edit_page(admin_client):
     page = PageFactory.create()
-    response = admin_client.get(reverse("page-edit", kwargs={"slug": page.slug}), follow=True)
+    response = admin_client.get(
+        reverse("page-edit", kwargs={"slug": page.slug}), follow=True
+    )
     assert response.status_code == 200
     assert bytes(f"<title>Edit {page.title}</title>", "utf-8") in response.content
     assert b"<h1>Edit Markdown</h1>" in response.content

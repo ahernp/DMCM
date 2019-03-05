@@ -5,7 +5,9 @@ from django.urls import include, path
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path("favicon.ico", RedirectView.as_view(url="/static/favicon.ico"), name="favicon"),
+    path(
+        "favicon.ico", RedirectView.as_view(url="/static/favicon.ico"), name="favicon"
+    ),
     path("", RedirectView.as_view(url="/pages/home"), name="homepage"),
     path("admin/", admin.site.urls),
     path("api/v1/", include("api.v1.urls")),

@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('timers', '0002_timer_slug'),
-    ]
+    dependencies = [("timers", "0002_timer_slug")]
 
     operations = [
         migrations.AlterField(
-            model_name='timer',
-            name='slug',
+            model_name="timer",
+            name="slug",
             field=models.SlugField(max_length=250, unique=True),
-        ),
+        )
     ]
