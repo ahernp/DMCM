@@ -16,7 +16,7 @@ def menus(request):
     for page_read in page_reads:
         if page_read.page not in history:
             history.append(page_read.page)
-        if len(history) == NUMBER_OF_PAGES_IN_HISTORY - 1:
+        if len(history) == NUMBER_OF_PAGES_IN_HISTORY:
             break
 
     return {
