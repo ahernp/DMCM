@@ -24,6 +24,7 @@ class PageAdmin(admin.ModelAdmin):
             },
         ),
     )
+    autocomplete_fields = ["parent"]
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "parent":
