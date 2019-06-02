@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
-                        to="mpages.Page",
+                        to="pages.Page",
                     ),
                 ),
             ],
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                 (
                     "page",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="mpages.Page"
+                        on_delete=django.db.models.deletion.CASCADE, to="pages.Page"
                     ),
                 ),
             ],
@@ -90,6 +90,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="page",
             name="tags",
-            field=models.ManyToManyField(to="mpages.Tag"),
+            field=models.ManyToManyField(to="pages.Tag"),
         ),
     ]

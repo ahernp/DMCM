@@ -6,7 +6,7 @@ import unittest
 from django.urls import reverse
 from django.utils import timezone
 
-from mpages.factories import PageFactory
+from pages.factories import PageFactory
 from .factories import LogFactory
 from .utils import highlight_matching_substring
 

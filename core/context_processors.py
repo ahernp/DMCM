@@ -3,7 +3,7 @@ from collections import OrderedDict
 from django.conf import settings
 from django.db.models import Count
 
-from mpages.models import Page, PageRead
+from pages.models import Page, PageRead
 
 NUMBER_OF_PAGES_IN_HISTORY = 20
 

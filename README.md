@@ -32,7 +32,7 @@ Tested on Ubuntu 18.04.
       1. `GRANT ALL PRIVILEGES ON DATABASE test_dmcm to dmcm;`
       1. `DROP DATABASE test_dmcm;`
    1. In `docker-compose exec webapp bash`:
-      1. `python manage.py makemigrations core mpages timers`
+      1. `python manage.py makemigrations core pages timers`
       1. `python manage.py migrate`
       1. `python manage.py loaddata project/fixtures/initial.json`
       1. `python manage.py collectstatic`

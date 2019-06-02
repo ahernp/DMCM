@@ -10,7 +10,7 @@ from django.views.generic.edit import FormView
 
 from .forms import UploadForm, FILE_TYPE_CHOICES
 from .utils import Headline, highlight_matching_substring, run_shell_command
-from mpages.models import Page
+from pages.models import Page
 
 
 def list_uploads():

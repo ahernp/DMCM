@@ -9,7 +9,7 @@
     }
 },
 {
-    "model": "mpages.page",
+    "model": "pages.page",
     "fields": {
         "title": "Home",
         "slug": "home",
@@ -19,7 +19,7 @@
     }
 },
 {
-    "model": "mpages.page",
+    "model": "pages.page",
     "fields": {
         "title": "Main Menu",
         "slug": "main-menu",

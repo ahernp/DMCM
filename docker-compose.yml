@@ -13,7 +13,7 @@ services:
 #        working_dir: /node
 #        command: bash -c "npm install && npm start"
 #        volumes:
-#            - ./mpages/mpagesjs:/node
+#            - ./pages/pagesjs:/node
 #        ports:
 #            - "3000:3000"
     webapp:

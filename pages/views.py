@@ -34,7 +34,7 @@ class PageDetailView(DetailView):
         except Http404:
             slug = kwargs.get("slug", "")
             populate_fields = f"?slug={slug}&title={slug}"
-            return redirect(reverse("admin:mpages_page_add") + populate_fields)
+            return redirect(reverse("admin:pages_page_add") + populate_fields)
         PageRead.objects.create(page=self.object)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
@@ -42,4 +42,4 @@ class PageDetailView(DetailView):
 
 class PageEditView(LoginRequiredMixin, DetailView):
     model = Page
-    template_name = "mpages/page_edit.html"
+    template_name = "pages/page_edit.html"
