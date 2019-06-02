@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "core.apps.CoreConfig",
     "dashboard.apps.DashboardConfig",
-    "pages.apps.pagesConfig",
+    "pages.apps.PagesConfig",
     "timers.apps.TimersConfig",
     "tools.apps.ToolsConfig",
 ]
