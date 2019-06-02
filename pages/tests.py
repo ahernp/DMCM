@@ -7,7 +7,7 @@ from .factories import PageFactory
 
 @pytest.mark.django_db
 def test_list_view(client):
-    page = PageFactory.create()
+    PageFactory.create()
     response = client.get(reverse("page-list"))
     assert response.status_code == 200
     assert b"<title>Pages</title>" in response.content
