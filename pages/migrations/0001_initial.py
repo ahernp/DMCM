@@ -88,8 +88,6 @@ class Migration(migrations.Migration):
             options={"ordering": ["label"]},
         ),
         migrations.AddField(
-            model_name="page",
-            name="tags",
-            field=models.ManyToManyField(to="pages.Tag"),
+            model_name="page", name="tags", field=models.ManyToManyField(to="pages.Tag")
         ),
     ]
